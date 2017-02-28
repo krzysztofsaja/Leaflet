@@ -177,6 +177,9 @@ export function geometryToLayer(geojson, options) {
 	switch (geometry.type) {
 	case 'Point':
 		latlng = _coordsToLatLng(coords);
+		if (geojson.properties && geojson.properties.radius) {
+        		return new L.Circle(latlng, geojson.properties.radius);
+      		}
 		return pointToLayer ? pointToLayer(geojson, latlng) : new Marker(latlng);
 
 	case 'MultiPoint':
